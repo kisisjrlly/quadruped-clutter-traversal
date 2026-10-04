@@ -1,0 +1,12 @@
+{
+  "status": "unconfirmed",
+  "robot_model": null,
+  "robot_asset_commit": null,
+  "control_interface": null,
+  "sensors": null,
+  "onboard_compute": null,
+  "training_gpu": null,
+  "simulation_backend": null,
+  "available_budget": null,
+  "time_budget": null
+}

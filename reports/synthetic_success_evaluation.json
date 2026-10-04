@@ -1,0 +1,33 @@
+{
+  "episode_id": "fixture_success_NOT_A_ROBOT_RUN",
+  "data_kind": "synthetic_fixture",
+  "observation_mode": "synthetic_fixture",
+  "scene_feasibility": "unknown",
+  "is_fixture": true,
+  "metrics": {
+    "completion_success": true,
+    "non_disturbing_success": true,
+    "strict_success": true,
+    "no_forbidden_contact_observed": true,
+    "no_object_disturbance_observed": true,
+    "forbidden_contact_events_observed": 0,
+    "disturbed_object_ids_observed": []
+  },
+  "evidence": {
+    "contact_coverage_complete": true,
+    "object_coverage_complete": true,
+    "provenance_fields_complete": false,
+    "raw_evidence_independently_verified": false
+  },
+  "scope": {
+    "eligible_for_onboard_track": false,
+    "eligible_for_real_robot_track": false,
+    "onboard_recorded_success": null,
+    "real_robot_recorded_success": null
+  },
+  "failure_reasons": [],
+  "unknown_reasons": [
+    "provenance_incomplete"
+  ],
+  "warning": "Summary-only verdict; raw evidence is not audited. Synthetic fixtures do not demonstrate robot capability."
+}

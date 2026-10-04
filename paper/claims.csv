@@ -1,0 +1,7 @@
+claim_id,claim,status,evidence,next_check
+C001,机载感知下完成留出密集障碍全身精细穿越,unverified,none,M1-M5
+C002,全身摆腿推理优于仅落点或机身规划,hypothesis,docs/RESEARCH_HYPOTHESES.md,H1 matched baseline
+C003,不确定性与空间记忆减少遮挡区碰撞,hypothesis,docs/RESEARCH_HYPOTHESES.md,H2 matched ablation
+C004,主动观察优于同预算减速策略,optional_hypothesis,docs/RESEARCH_HYPOTHESES.md,H3 only after evidence
+C005,评测器能区分接触与物体扰动,software_only,tests/test_evaluation.py,run tests
+C006,此任务或无碰撞机制是首次实现,not_claimed,docs/RELATED_WORK.md,exhaustive review required

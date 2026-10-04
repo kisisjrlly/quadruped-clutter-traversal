@@ -1,0 +1,14 @@
+{
+  "schema_version": "qct.benchmark.v0.1",
+  "task_version": "qct-task-v0.1",
+  "threshold_status": "provisional_software_defaults_not_preregistered",
+  "timeout_s": 120.0,
+  "max_object_translation_m": 0.005,
+  "max_object_rotation_deg": 2.0,
+  "allowed_ground_contact_links": [
+    "front_left_foot",
+    "front_right_foot",
+    "rear_left_foot",
+    "rear_right_foot"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "schema_version": "qct.episode.v0.1",
+  "task_version": "qct-task-v0.1",
+  "episode_id": "fixture_success_NOT_A_ROBOT_RUN",
+  "scene_id": "fixture_scene",
+  "method_id": "hand_authored_fixture",
+  "seed": 0,
+  "data_kind": "synthetic_fixture",
+  "observation_mode": "synthetic_fixture",
+  "scene_feasibility": "unknown",
+  "duration_s": 5.0,
+  "expected_object_ids": [
+    "rod_0",
+    "bottle_0"
+  ],
+  "integrity": {
+    "episode_complete": true,
+    "contact_monitor_complete": true,
+    "object_tracking_complete": true
+  },
+  "outcome": {
+    "goal_reached": true,
+    "goal_settled": true,
+    "fallen": false,
+    "emergency_stop": false,
+    "manual_intervention": false,
+    "boundary_violation": false,
+    "prohibited_airborne": false,
+    "obstacle_supported": false,
+    "timed_out": false
+  },
+  "contacts": [
+    {
+      "time_s": 1.0,
+      "robot_link": "front_left_foot",
+      "counterpart_type": "ground",
+      "counterpart_id": "floor"
+    }
+  ],
+  "objects": [
+    {
+      "object_id": "rod_0",
+      "max_translation_m": 0.0,
+      "max_rotation_deg": 0.0,
+      "toppled": false
+    },
+    {
+      "object_id": "bottle_0",
+      "max_translation_m": 0.0,
+      "max_rotation_deg": 0.0,
+      "toppled": false
+    }
+  ],
+  "provenance": {
+    "git_commit": null,
+    "config_sha256": null,
+    "scene_sha256": null,
+    "geometry_sha256": null,
+    "policy_sha256": null,
+    "evidence_sha256": null
+  }
+}
