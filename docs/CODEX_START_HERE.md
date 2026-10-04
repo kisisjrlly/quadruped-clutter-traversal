@@ -1,39 +1,39 @@
-# 给本地 Codex：从这里开始
+# 给本地 Codex：第1轮交付后的下一步
 
-## 先确认环境与边界
+只操作 `kisisjrlly/quadruped-clutter-traversal`，公开main，保留远端历史和本地改动，不force push。先读AGENTS、STATUS、RESEARCH_PLAN_V2、ISAACLAB、EXPERIMENTS_V2。
 
-读取 AGENTS、STATUS、TASK_AND_BENCHMARK、SYSTEM_DESIGN 和 ROADMAP。核对当前目录与 Git remote：只允许写入 kisisjrlly/quadruped-clutter-traversal。该独立仓库已由用户创建，并明确授权保持公开、直接提交 main；禁止 fork、上游 PR、擅改可见性和 force push。开始前读取远端与本地 SHA，保留现有历史和未提交改动。
-
-依次运行：
+## 已有代码先验证
 
 ```bash
-python --version
 python -m unittest discover -s tests -v
 python scripts/check_project.py
-python -m qct evaluate examples/synthetic_episode_success.json
-python -m qct evaluate examples/synthetic_episode_contact.json
+python -m qct.workflow doctor
+python -m qct.workflow scene --seed 0 --split calibration --count 0 --output runs/empty.json
+python -m qct.workflow plan runs/empty.json
 ```
 
-人工 fixtures 通过只代表评测逻辑测试通过。不要改文件把它们变成 simulation 或 real_robot 结果。
+当前CPU组件已经有回归测试；不要把人工测试轨迹当仿真结果。无需重写生成器、评测器或另起MuJoCo主线。
 
-## 第一次实施任务：M1，不做训练
+## P0：在本地Isaac环境完成接口与物理验收
 
-A. 调查本机可用仿真环境/机器人模型，输出 `reports/platform_audit.md`：已安装版本、可访问资产、许可、控制接口与实际硬件。重要信息缺失就问，不猜。
+记录操作系统/GPU/显存/驱动/Isaac Lab/Sim版本、官方Go2资产可用性与许可。按ISAACLAB.md先跑empty stand，然后一杆一瓶。修复实际接口错误后加集成回归，不因脚本通过py_compile就停止。
 
-B. 经选择后只适配一个引擎/机器人，新增真实模块 `qct/sim/` 与 `qct/geometry/`，不先批量创建空模块。建立平地、一杆、一瓶场景；杆和瓶可被扰动，不以固定刚体掩盖碰倒问题。
+检查 `run.json` 的实际joint/body/collider路径。将真正foot collider映射到canonical足，不将calf全部映射foot。确认相机光学朝向、遮挡、depth类型、帧时间，检查静置物品漂移。保存完整state/contact原始记录和版本。
 
-C. 以 URDF/MJCF 中的全连杆和附件构建碰撞检测。确认足端、小腿、大腿、机身、附件都可归因；检验球/胶囊近似是否过粗。
+## P1：建立可审计M1物理fixture
 
-D. 实现回合采集器：保存完整状态与原始事件，计算全程最大对象位移/旋转，输出与当前 evaluator 一致的摘要；缺测不得默认零。配置 schema 改动需升版本、同步文档和测试。
+实现可控仿真故意接触：foot、calf、thigh、base、wall、self；区分脚正常地面支撑。补做净力抵消/低冲量/细杆跨采样/暂停/退出/初始接触状态验证。独立核查碰撞网格覆盖和CCD/报告缓冲容量。数据要从真实物理引擎采集，不手写JSON代替。
 
-E. 验证一条安全单步和至少足端、小腿、机身三类故意接触；在细杆高速扫过、低频采样和终止自动 reset 条件下验证不漏记。这里“高速”仅为仿真测试，不用于真机。
+当前runner硬性保持contact calibration未验证且t0未求解，因此strict认证无法通过。这是已知保护，不是应删掉的“阻碍”。在独立物理fixture通过后设计calibration manifest绑定物理配置、资产版本、范围、证据hash和完整监测，形成新commit；同时完善包络越界、跳跃/支撑、附件监测。
 
-F. 生成清晰回放：机器人、障碍、当前四足、选中的摆腿轨迹和接触高亮，默认不画所有调试线。不得以渲染穿模当成功。
+## P2：强oracle全身/跟踪基线
 
-## 第一份交付必须包含
+当前A*只规划圆形机身；foot swing只检查足端，capsule线性扫掠不替代真实关节轨迹。下一步从实际USD几何建立FK/IK和保守全连杆覆盖，集成慢速跟踪，验证一条完整body+feet轨迹。只有几何与实际跟踪误差足够小，才进入密集布局和感知闭环。
 
-单命令可复现的最小场景；所有新模块的单测/集成测试；机器人/场景/代码版本；可行与故意失败样例；未完成与限制；下一步 M2 是否可启动。更新 STATUS、DECISIONS、实验记录。不要声称论文方法完成。
+需要训练低层时先审核M1 gate，再用 `isaac_baseline_train.py`。其任务是上游平地速度控制；不能把训练完成写成QCT障碍能力完成。若需要精确落足跟踪，按DTC类参照设计并另行记录。
 
-## 暂不做
+## P3：感知和论文实验
 
-不启动大规模 RL、不选择多个并行主线、不接真实电机、不采购硬件、不上传大日志/第三方图片、不改现有无人机项目。不要把既有稳定 controller 的 checkpoint 当本项目训练成果。
+现有VoxelMemory是CPU参考，不是最终NVM或完整感知系统。接入经过估计的位姿、同步深度、缺测/年龄信息，建立oracle与sensed严格隔离；再做H1/H2和SemLoco等强对照。禁止先写“首次”或虚构成功率。
+
+每次交付更新STATUS、DECISIONS、实验模板与claims，附实际命令、原始记录、测试、仍未完成项。保留历史bootstrap报告。资源或机器人型号不明时只问必要问题，不继承无人机项目配置；不连接真机电机。

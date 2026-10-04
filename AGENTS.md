@@ -18,3 +18,7 @@
 ## 完成定义
 
 每项交付必须包含：目的、改动、执行命令、可定位证据、已知局限和下一步。CI 只有配置不算已运行，远端推送必须以读回的 commit 为准。
+
+## 第1轮迭代补充
+
+仿真主线为 Isaac Lab / Isaac Sim；当前方案以 docs/RESEARCH_PLAN_V2.md、docs/ISAACLAB.md、docs/EXPERIMENTS_V2.md 为准。所有当前运行模式为 oracle 诊断，不得把相机录制改名为机载闭环；原始接触仪器未标定时不得签发 strict_success。上游平地训练入口不是密集障碍训练环境。保留启动期报告，不能用新报告覆盖旧证据。

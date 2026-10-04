@@ -1,2 +1,2 @@
-"""QCT research bootstrap. No robot controller or simulation is implemented."""
-__version__ = "0.1.0"
+"""QCT research tools. Isaac integration requires separate runtime validation."""
+__version__ = "0.2.0"

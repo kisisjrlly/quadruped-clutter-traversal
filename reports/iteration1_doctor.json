@@ -1,0 +1,12 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "packages": {
+    "isaaclab": false,
+    "isaacsim": false,
+    "torch": true,
+    "numpy": true
+  },
+  "isaac_runtime_executed": false,
+  "note": "Package presence is not runtime compatibility or GPU validation."
+}

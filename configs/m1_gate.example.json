@@ -1,0 +1,12 @@
+{
+  "schema_version": "qct.m1-gate.v1",
+  "asset_audited": false,
+  "physics_smoke_passed": false,
+  "foot_contact_passed": false,
+  "calf_contact_passed": false,
+  "base_contact_passed": false,
+  "thin_rod_temporal_test_passed": false,
+  "object_rest_drift_passed": false,
+  "reviewer": null,
+  "evidence_directory": null
+}
